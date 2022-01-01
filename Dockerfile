@@ -42,20 +42,20 @@ USER ${USER}
 #### ---- (Build jar / exe) ---- ####
 #ARG UGQL_GIT=https://git.rwth-aachen.de/i5/ultragraphql.git
 ARG UGQL_GIT=https://github.com/DrSnowbird/UltraGraphQL.git
-RUN git clone ${UGQL_GIT} && cd $(basename ${UGQL_GIT%%.git}) && \
+RUN git clone ${UGQL_GIT} && cd $(basename ${UGQL_GIT%%.git}) && git pull --ff && \
     gradle clean build shadowJar && ls -al $(find ./build -name "*.jar")
 
 #### ---- (download both UGQL & HGQL jar files to support run-demo.sh) ---- ####
 #ARG HGQL_GIT=https://github.com/hypergraphql/hypergraphql.git
 ARG HGQL_GIT=https://github.com/DrSnowbird/HyperGraphQL.git
-RUN git clone ${HGQL_GIT} && cd $(basename ${HGQL_GIT%%.git}) && \
+RUN git clone ${HGQL_GIT} && cd $(basename ${HGQL_GIT%%.git}) && git pull --ff && \
     gradle clean build shadowJar && ls -al $(find ./build -name "*.jar")
 
-#ARG HGQL_VERSION_LATEST=3.0.1
+#ARG HGQL_VERSION_LATEST=3.0.2
 #ARG HGQL_JAR=https://github.com/hypergraphql/hypergraphql/releases/download/${HGQL_VERSION_LATEST}/hypergraphql-${HGQL_VERSION_LATEST}-exe.jar
 #RUN wget -q --no-check-certificate ${HGQL_JAR}
     
-#ARG UGQL_VERSION_LATEST=1.1.3
+#ARG UGQL_VERSION_LATEST=1.1.4
 #ARG UGQL_JAR=https://git.rwth-aachen.de/i5/ultragraphql/-/jobs/1662119/artifacts/file/build/libs/ultragraphql-1.1.3-exe.jar
 #RUN wget -q --no-check-certificate ${UGQL_JAR}
 
