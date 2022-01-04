@@ -29,8 +29,8 @@ function get_latest_release_url() {
     [[ `curl --silent ${LATEST_RELEASE_URL}` =~ ${REGEX_VERSION} ]] && LATEST_VERSION=${BASH_REMATCH[1]}
 }
 get_latest_release_url
-echo "LATEST_JAR= ${LATEST_JAR}"
-echo "LATEST_VERSION= ${LATEST_VERSION}"
+echo "LATEST_JAR=${LATEST_JAR}"
+echo "LATEST_VERSION=${LATEST_VERSION}"
 
 #CONFIG_FILE=./Dockerfile
 #CONFIG_KEY="PRODUCT_VERSION"

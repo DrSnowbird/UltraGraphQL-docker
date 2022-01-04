@@ -33,22 +33,8 @@ services:
       - GROUP_ID=${GROUP_ID:-1000}
       # - APP_HOME=${APP_HOME:-/home/developer/app}
       # - APP_MAIN=${APP_MAIN:-setup.sh}
-      - DOCKER_HOST_IP=${DOCKER_HOST_IP:-192.168.0.124}
-      - DOCKER_HOST_NAME=${DOCKER_HOST_NAME:-aurora}
-      # ==== X11 Use only ====
-      #- DISPLAY=$DISPLAY
-      #- DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
-      # ==== vnc/no-vnc ====
-      #- WINDOW_MANAGER=xfce 
-      #- VNC_RESOLUTION=1280x800 
-      #- VNC_PW=vncpassword 
-    ## -------------------------------
-    ## -- Audio sound setup:
-    ## -------------------------------
-    #group_add:
-    #  - audio
-    #devices:
-    #  - "/dev/snd:/dev/snd"
+      - DOCKER_HOST_IP=${DOCKER_HOST_IP:-127.0.0.1}
+      - DOCKER_HOST_NAME=${DOCKER_HOST_NAME:-localhost}
     ## -------------------------------------------
     ## -- Change to your specific Volumes Mapping:
     ## -------------------------------------------
@@ -74,7 +60,7 @@ services:
     ## -- Change to your specific port
     ## -------------------------------
     ports:
-      - "8000"
+      - "48000:8000"
 
     ## -----------------------------
     ## -- Network setup if needed --

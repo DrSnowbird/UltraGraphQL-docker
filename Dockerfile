@@ -60,14 +60,19 @@ RUN git clone ${HGQL_GIT} && cd $(basename ${HGQL_GIT%%.git}) && git pull --ff &
 #RUN wget -q --no-check-certificate ${UGQL_JAR}
 
 #### ---- (Script for Evaluation demo): ---- ####
-COPY --chown=${USER}:${USER} run-demo.sh .
+#ENV UGQL_VERSION=${UGQL_VERSION:-1.1.4}
+RUN mkdir -p ${HOME}/bin && sudo chown -R ${USER}:${USER} ${HOME}/bin
+COPY --chown=${USER}:${USER} bin/find-latest-release.sh ${HOME}/bin/
+COPY --chown=${USER}:${USER} run-demo.sh ${HOME}/bin/
 
 ######################
 #### (Test only) #####
 ######################
-CMD ["/bin/bash"]
+#CMD ["/bin/bash"]
 ######################
 #### (RUN setup) #####
 ######################
-#CMD ["setup.sh"]
+CMD ["setup.sh"]
+
+
 

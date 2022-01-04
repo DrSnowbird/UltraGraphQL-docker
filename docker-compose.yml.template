@@ -1,6 +1,22 @@
 version: '3.1' 
 
 services:
+  nginx-reverse-proxy-docker:
+    image: openkbs/nginx-reverse-proxy-docker
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nginx-reverse-proxy-docker
+    environment:
+      - USER_ID=${USER_ID:-1000}
+      - GROUP_ID=${GROUP_ID:-1000}
+    env_file:
+      - .env
+    ports: # 8443 25901 26901 28080
+      - 58080:8080   #  Proxy access 8000
+    volumes:
+      - ./etc/nginx:/etc/nginx
+
   {{CONTAINER_NAME}}:
     container_name: {{CONTAINER_NAME}}
     image: {{ORG_NAME}}/{{CONTAINER_NAME}}
@@ -19,20 +35,6 @@ services:
       # - APP_MAIN=${APP_MAIN:-setup.sh}
       - DOCKER_HOST_IP=${DOCKER_HOST_IP:-{{DOCKER_HOST_IP}}}
       - DOCKER_HOST_NAME=${DOCKER_HOST_NAME:-{{DOCKER_HOST_NAME}}}
-      # ==== X11 Use only ====
-      #- DISPLAY=$DISPLAY
-      #- DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
-      # ==== vnc/no-vnc ====
-      #- WINDOW_MANAGER=xfce 
-      #- VNC_RESOLUTION=1280x800 
-      #- VNC_PW=vncpassword 
-    ## -------------------------------
-    ## -- Audio sound setup:
-    ## -------------------------------
-    #group_add:
-    #  - audio
-    #devices:
-    #  - "/dev/snd:/dev/snd"
     ## -------------------------------------------
     ## -- Change to your specific Volumes Mapping:
     ## -------------------------------------------
