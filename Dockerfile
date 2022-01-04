@@ -68,11 +68,11 @@ COPY --chown=${USER}:${USER} run-demo.sh ${HOME}/bin/
 ######################
 #### (Test only) #####
 ######################
-#CMD ["/bin/bash"]
+CMD ["/bin/bash"]
 ######################
 #### (RUN setup) #####
 ######################
-CMD ["setup.sh"]
+#CMD ["setup.sh"]
 
 
 
