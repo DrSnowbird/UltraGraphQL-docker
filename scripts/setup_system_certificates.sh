@@ -2,6 +2,12 @@
 
 echo "####################### Components: $(basename $0) ###########################"
 
+sudo = `which sudo`
+
+cat /etc/*rel*
+
+find . -name "ca-certificates"
+
 if [ "$1" != "" ]; then
     SOURCE_CERTIFICATES_DIR=${SOURCE_CERTIFICATES_DIR:-$1}
 else
@@ -126,8 +132,6 @@ function detectOS() {
 #### After these steps the new CA is known by system utilities like curl and get. 
 #### Unfortunately, this does not affect most web browsers like Mozilla Firefox or Google Chrome.
 #### -------------------------------------------------------------------------------------------- 
-
-
 ## -- CentOS
 # CERTITICATES_INSTALL_DIR=${CERTITICATES_INSTALL_DIR:-/etc/pki/ca-trust/source/anchors}
 ## -- Debian/Ubuntu
@@ -153,7 +157,10 @@ if [ $OS_TYPE -eq 1 ]; then
     # Ubuntu
     CERT_COMMAND=`which update-ca-certificates`
     CMD_OPT=
-    TARGET_CERTIFICATES_DIR=/usr/local/share/ca-certificates
+    TARGET_CERTIFICATES_DIR=/usr/local/ca-certificates
+    if [ -s /usr/local/share/ca-certificates ]; then
+        TARGET_CERTIFICATES_DIR=/usr/local/share/ca-certificates
+    fi
 else
     if [ $OS_TYPE -eq 2 ]; then
         # CentOS
@@ -168,23 +175,33 @@ fi
 
 function setupSystemCertificates() {
     echo "================= Setup System Certificates ===================="
-    sudo mkdir ${TARGET_CERTIFICATES_DIR}
-    for cert in `ls ${SOURCE_CERTIFICATES_DIR}/*`; do
+    if [ ! -s ${TARGET_CERTIFICATES_DIR} ]; then
+        echo -e "*** TARGET_CERTIFICATES_DIR: ${TARGET_CERTIFICATES_DIR}: Not Found!"
+        $sudo mkdir -p ${TARGET_CERTIFICATES_DIR}
+    fi
+    if [ -s /etc/ca-certificates/update.d/docker-openjdk ]; then
+        cat /etc/ca-certificates/update.d/docker-openjdk
+        echo ">> JAVA PATH=`which java`"
+        $sudo sed -i "s#\$JAVA_HOME#$JAVA_HOME#g" /etc/ca-certificates/update.d/docker-openjdk
+        env | grep -i java
+        cat /etc/ca-certificates/update.d/docker-openjdk
+    fi
+    for cert in `cd ${SOURCE_CERTIFICATES_DIR} && ls * | grep -v dummy`; do
         ## -- Converting from PEM to CRT: -- ##
         ## openssl x509 -ouform der -in Some-Certificate.pem -out Some-Certificate.crt
         if [[ "${cert}" == *"pem" ]]; then
-            openssl x509 -ouform der -in ${cert} -out ${cert//pem/crt}
+            openssl x509 -ouform der -in ${SOURCE_CERTIFICATES_DIR}/${cert} -out ${cert//pem/crt}
         fi
         if [[ "${cert}" == *"crt" ]]; then
-            #sudo cp root.cert.pem /usr/local/share/ca-certificates/root.cert.crt
+            #$sudo cp root.cert.pem /usr/local/share/ca-certificates/root.cert.crt
             cert_basename=$(basename $cert)
-            sudo cp ${cert} ${TARGET_CERTIFICATES_DIR}/${cert}
+            $sudo cp ${SOURCE_CERTIFICATES_DIR}/${cert} ${TARGET_CERTIFICATES_DIR}/$(basename ${cert})
         else
             echo "... ignore non-certificate file: $cert"
         fi
     done
-    #sudo update-ca-certificates
-    sudo ${CERT_COMMAND} ${CMD_OPT}
+    #$sudo update-ca-certificates
+    $sudo ${CERT_COMMAND} ${CMD_OPT}
 }
 setupSystemCertificates 
 
