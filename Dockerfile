@@ -41,10 +41,10 @@ RUN git clone ${UGQL_GIT} && cd $(basename ${UGQL_GIT%%.git}) && git pull --ff &
     gradle clean build shadowJar && ls -al $(find ./build -name "*.jar")
 
 #### ---- (download both UGQL & HGQL jar files to support run-demo.sh) ---- ####
-##ARG HGQL_GIT=https://github.com/hypergraphql/hypergraphql.git
-#ARG HGQL_GIT=https://github.com/DrSnowbird/HyperGraphQL.git
-#RUN git clone ${HGQL_GIT} && cd $(basename ${HGQL_GIT%%.git}) && git pull --ff && \
-#    gradle clean build shadowJar && ls -al $(find ./build -name "*.jar")
+#ARG HGQL_GIT=https://github.com/hypergraphql/hypergraphql.git
+ARG HGQL_GIT=https://github.com/DrSnowbird/HyperGraphQL.git
+RUN git clone ${HGQL_GIT} && cd $(basename ${HGQL_GIT%%.git}) && git pull --ff && \
+    gradle clean build shadowJar && ls -al $(find ./build -name "*.jar")
 
 #ARG HGQL_VERSION_LATEST=3.0.2
 #ARG HGQL_JAR=https://github.com/hypergraphql/hypergraphql/releases/download/${HGQL_VERSION_LATEST}/hypergraphql-${HGQL_VERSION_LATEST}-exe.jar
