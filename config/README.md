@@ -1,3 +1,55 @@
+# Usage:
+1. rename input TTL as 'dataset.ttl'
+2. inspect the config.json as below for correct values, e.g.l, 'dataset.ttl' port number matchin '.env (default 48000:8000)
+```
+{
+  "name": "one_service",
+  "extraction": true,
+  "server": {
+    "host": "0.0.0.0",
+    "port": 8000,
+    "graphql": "/graphql",
+    "graphiql": "/graphiql",
+    "framework": "jaxrs"
+  },
+  "services": [
+    {
+      "id": "dataset",
+      "type": "LocalModelSPARQLService",
+      "filepath": "dataset.ttl",
+      "filetype": "Turtle"
+    }
+  ]
+}
+```
+
+# To user remote SPARQL Endpoint:
+* Copy and modify './config.json_with_SPARQL_endpoint/config.json' to $HOME/app/config/config.json
+* Modify config.json as below alike:
+```
+{
+  "name": "query-persons-and-cars",
+  "extraction": true,
+  "server": {
+    "port": 8000,
+    "graphql": "/graphql",
+    "graphiql": "/graphiql"
+  },
+  "services": [
+    {
+      "id": "dataset",
+      "type": "SPARQLEndpointService",
+      "url": "http://0.0.0.0:13030/persons_and_cars/",
+      "graph": "",
+      "user": "",
+      "password": ""
+    }
+  ]
+}
+```
+
+# Reference Only (below): ---------------- example only --------------------
+
 # one_service Example
 This example has one service from which the schema is extracted. The extracted schema is shown [here](#extracted-ugqls).
 The sample dataset allows to write queries for different features of UGQL as shown in in [sample query](#sample-queries) section.

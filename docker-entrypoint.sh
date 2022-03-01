@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 #
 ###########################################################################
 #### ---- docker-entrypoint.sh: for application with ./app folder ---- ####
@@ -13,6 +13,8 @@
 set -e
 
 env
+
+echo ">>> inputs: $@"
 
 APP_MAIN=${APP_MAIN:-setup.sh}
 

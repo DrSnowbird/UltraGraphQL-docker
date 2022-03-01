@@ -39,6 +39,14 @@ If [ you are looking for such a common requirement as a base Container ] and
 ./run.sh
 ```
 
+Default, this will bring you into the Container /home/developer/app folder. From there you can manually do your experiment.
+TODO:
+* Allow users to provide 'work directory' and auto-launching the 
+```
+
+cd ${GRAPH_WORK_DIR:-$HOME/app/graph_work_dir}
+java -jar $HOME/app/UltraGraphQL/build/libs/ultragraphql-1.1.4-exe.jar --config config.json
+```
 
 # Pull image from Docker Repository
 

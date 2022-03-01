@@ -2,6 +2,7 @@
   "name": "query-persons-and-cars",
   "extraction": true,
   "server": {
+    "host": "0.0.0.0",
     "port": 8000,
     "graphql": "/graphql",
     "graphiql": "/graphiql"
@@ -10,7 +11,7 @@
     {
       "id": "dataset",
       "type": "SPARQLEndpointService",
-      "url": "http://192.168.0.124:13030/persons_and_cars/",
+      "url": "http://0.0.0.0:13030/persons_and_cars/",
       "graph": "",
       "user": "",
       "password": ""
