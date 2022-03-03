@@ -1,20 +1,19 @@
 {
-  "name": "query-test",
-  "schema":"schema_dbpedia.hgqls",
+  "name": "one_service",
+  "extraction": true,
   "server": {
     "host": "0.0.0.0",
     "port": 8000,
     "graphql": "/graphql",
-    "graphiql": "/graphiql"
+    "graphiql": "/graphiql",
+    "framework": "jaxrs"
   },
   "services": [
     {
       "id": "dataset",
-      "type": "SPARQLEndpointService",
-      "url": "https://dbpedia.org/sparql",
-      "graph": "http://dbpedia.org",
-      "user": "",
-      "password": ""
+      "type": "LocalModelSPARQLService",
+      "filepath": "/home/developer/app/config/dataset.ttl",
+      "filetype": "Turtle"
     }
   ]
 }

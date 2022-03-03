@@ -25,7 +25,7 @@ else
     cp config.json config.json.tmp
 fi
 echo -e ">>> config.json Contents:\n"
-cat config_tmp.json
+cat config.json.tmp
 
 # java -jar ${HOME}/app/UltraGraphQL/build/libs/ultragraphql-1.1.4-exe.jar --config config.json
 java -jar ${HOME}/app/UltraGraphQL/build/libs/ultragraphql-${UGQL_VERSION}-exe.jar --config config.json.tmp
