@@ -24,12 +24,12 @@ If [ you are looking for such a common requirement as a base Container ] and
    * [UltraGraphQL-Upstream](https://git.rwth-aachen.de/i5/ultragraphql)
    * [UltraGraphQL](https://github.com/DrSnowbird/UltraGraphQL)
    * [UltraGraphQL-docker](https://github.com/DrSnowbird/UltraGraphQL-docker)
-* HyerGrahQL:
-   * [HyberGraphQL-Upstream](https://github.com/hypergraphql/hypergraphql)
-   * [HyberGraphQL](https://github.com/DrSnowbird/HyperGraphQL)
-   * [HyberGraphQL-docker](https://github.com/DrSnowbird/HyperGraphQL-docker)
+* HyperGrahQL:
+   * [HyperGraphQL-Upstream](https://github.com/hypergraphql/hypergraphql)
+   * [HyperGraphQL](https://github.com/DrSnowbird/HyperGraphQL)
+   * [HyperGraphQL-docker](https://github.com/DrSnowbird/HyperGraphQL-docker)
 
-# Build (do this first!)
+# Build (do this fprst!)
 ```
 ./build.sh
 ```
