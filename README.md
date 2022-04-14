@@ -117,8 +117,12 @@ FROM openkbs/ultragraphql-docker
 * stop.sh - stop the container
 
 
-# ==== README from Original UltraGrapQL ====
+# ==== README.md from Original UltraGrapQL ====
+### Note: Docker version Guide (see above)
+### The following is for reference only
+### Source: [UltraGraphQL](https://git.rwth-aachen.de/i5/ultragraphql/-/blob/master/README.md) 
 # [<img src="./docs/figures/HyperGraphQL.png" width="30">](hypergraphql-logo.svg) UltraGraphQL
+
 UltraGraphQL is a [GraphQL](https://graphql.org/) interface for querying and modifying RDF data on the Web.
 It extends [HyperGraphQL](https://www.hypergraphql.org/) by providing a automatic bootstrapping phase of the service and a more feature rich schema support with additional support for GraphQL mutations.
 Because it is based on HyperGraphQL features like the support of federated querying and exposing data from multiple linked data services using GraphQL query language and schemas were maintained and extended.
