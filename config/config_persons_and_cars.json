@@ -1,5 +1,5 @@
 {
-  "name": "UCO-Casework ontology",
+  "name": "query-persons-and-cars",
   "extraction": true,
   "server": {
     "host": "0.0.0.0",
@@ -11,7 +11,7 @@
     {
       "id": "dataset",
       "type": "SPARQLEndpointService",
-      "url": "http://0.0.0.0:13030/rdf001/",
+      "url": "http://0.0.0.0:13030/persons_and_cars/",
       "graph": "",
       "user": "",
       "password": ""

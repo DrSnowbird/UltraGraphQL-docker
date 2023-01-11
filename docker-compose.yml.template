@@ -1,21 +1,21 @@
 version: '3.1' 
 
 services:
-  nginx-reverse-proxy-docker:
-    image: openkbs/nginx-reverse-proxy-docker
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: nginx-reverse-proxy-docker
-    environment:
-      - USER_ID=${USER_ID:-1000}
-      - GROUP_ID=${GROUP_ID:-1000}
-    env_file:
-      - .env
-    ports: # 8443 25901 26901 28080
-      - 58080:8080   #  Proxy access 8000
-    volumes:
-      - ./etc/nginx:/etc/nginx
+  #nginx-reverse-proxy-docker:
+  #  image: openkbs/nginx-reverse-proxy-docker
+  #  build:
+  #    context: .
+  #    dockerfile: Dockerfile
+  #  container_name: nginx-reverse-proxy-docker
+  #  environment:
+  #    - USER_ID=${USER_ID:-1000}
+  #    - GROUP_ID=${GROUP_ID:-1000}
+  #  env_file:
+  #    - .env
+  #  ports: # 8443 25901 26901 28080
+  #    - 58080:8080   #  Proxy access 8000
+  #  volumes:
+  #    - ./etc/nginx:/etc/nginx
 
   {{CONTAINER_NAME}}:
     container_name: {{CONTAINER_NAME}}
