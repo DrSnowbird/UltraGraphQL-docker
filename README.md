@@ -5,16 +5,19 @@ If [ you are looking for such a common requirement as a base Container ] and
    [ UltraGraphQL inside the container ]:
    Then [ this one may be for you ]
 ```
-# Requirements:
-* Gradle: v7.3.3
-* Java: v11
+# Optional RDF Docker Services to work together:
+* Apache Jena Fuseki: e.g. [openkbs/jena-fuseki-docker](https://github.com/DrSnowbird/jena-fuseki-docker) (verified! and recommended!)
+* Eclipse RDF4J: e.g., [openkbs/rdf4j-docker](https://github.com/DrSnowbird/rdf4j-docker) (Not verified!)
+* UCO SHACL Validator: e.g., [uco-shacl-validator-docker](https://github.com/DrSnowbird/uco-shacl-validator-docker)
 
 # Components:
 * UltraGraphQL
 * No root setup: using /home/developer 
   * It has sudo for dev phase usage. You can "sudo apt-get remove sudo" to finalize the product image.
   * Note, you should consult Docker security experts in how to secure your Container for your production use!)
-  
+* Gradle: v7.3.3
+* Java: v11
+
 # Release
 * This is also a fix to mitigate the Log4Shell vulnerability.
    * update to the latest versions to avoid the Log4Shell vulnerability
@@ -29,12 +32,13 @@ If [ you are looking for such a common requirement as a base Container ] and
    * [HyperGraphQL](https://github.com/DrSnowbird/HyperGraphQL)
    * [HyperGraphQL-docker](https://github.com/DrSnowbird/HyperGraphQL-docker)
 
-# Build (do this fprst!)
+# Build (do this first!)
 ```
 ./build.sh
 ```
 
-# Run
+# (optional) Run (manual setup and run)
+* You can manually go into the container to play around, setup differently, and run - if you like to.
 * Use the command below to enter the Container:
 ```
 ./run.sh bash
@@ -47,8 +51,8 @@ java -jar $HOME/app/UltraGraphQL/build/libs/ultragraphql-1.1.4-exe.jar --config 
 
 # Run (demo with default setup)
 1. Don't start the Container yet.
-2. Modify the 'config/config.json' file to provide specific remote SPARQL Endpoint URL: 
-   You need to modify "url" value for your actual SPARQL Endpoint URL.
+2. First, you modify the 'config/config.json' file to provide specific remote SPARQL Endpoint URL: 
+   You need to modify "url" value for your actual SPARQL Endpoint URL, e.g., 
 ```
 {
   "name": "query-persons-and-cars",
@@ -95,12 +99,6 @@ GraphQL server started at: http://<your-docker-host-IP>:48000/graphql
 GraphiQL UI available at: http://<your-docker-host-IP>:48000/graphiql
 e.g.,
 http://localhost:48000/graphiql
-```
-
-# Pull image from Docker Repository
-
-```
-docker pull openkbs/ultragraphql-docker
 ```
 
 # Create your own image from this
