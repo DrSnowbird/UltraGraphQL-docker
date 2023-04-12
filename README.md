@@ -22,20 +22,22 @@ If [ you are looking for such a common requirement as a base Container ] and
 * This is also a fix to mitigate the Log4Shell vulnerability.
    * update to the latest versions to avoid the Log4Shell vulnerability
 
-# Related Projects
-* UltraGraphQL:
-   * [UltraGraphQL-Upstream](https://git.rwth-aachen.de/i5/ultragraphql)
-   * [UltraGraphQL](https://github.com/DrSnowbird/UltraGraphQL)
-   * [UltraGraphQL-docker](https://github.com/DrSnowbird/UltraGraphQL-docker)
-* HyperGrahQL:
-   * [HyperGraphQL-Upstream](https://github.com/hypergraphql/hypergraphql)
-   * [HyperGraphQL](https://github.com/DrSnowbird/HyperGraphQL)
-   * [HyperGraphQL-docker](https://github.com/DrSnowbird/HyperGraphQL-docker)
-
 # Build (do this first!)
 ```
 ./build.sh
 ```
+
+
+# Build (Optional, when encountering GIT SSL issues)
+* If your Docker is located inside corporate SSL firewall, the build might fail.
+* To workaround, you want to use the 'Dockerfile-copy-jar' instead, do the followings:
+```
+cp Dockerfile Dockerfile.ORIG
+cp Dockerfile-copy-jar Dockerfile
+
+make build
+```
+
 
 # (optional) Run (manual setup and run)
 * You can manually go into the container to play around, setup differently, and run - if you like to.
@@ -113,6 +115,16 @@ FROM openkbs/ultragraphql-docker
 * run.sh - run the container
 * shell.sh - shell into the container
 * stop.sh - stop the container
+
+# Related Projects
+* UltraGraphQL:
+   * [UltraGraphQL-Upstream](https://git.rwth-aachen.de/i5/ultragraphql)
+   * [UltraGraphQL](https://github.com/DrSnowbird/UltraGraphQL)
+   * [UltraGraphQL-docker](https://github.com/DrSnowbird/UltraGraphQL-docker)
+* HyperGrahQL:
+   * [HyperGraphQL-Upstream](https://github.com/hypergraphql/hypergraphql)
+   * [HyperGraphQL](https://github.com/DrSnowbird/HyperGraphQL)
+   * [HyperGraphQL-docker](https://github.com/DrSnowbird/HyperGraphQL-docker)
 
 
 # ==== README.md from Original UltraGrapQL ====

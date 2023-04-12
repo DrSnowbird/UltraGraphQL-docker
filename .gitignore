@@ -35,8 +35,18 @@ hs_err_pid*
 **/*tmp
 **/*BACKUP/
 
-**/UltraGraphQL/
-**/HyperGraphQL/
+v1.1.4/UltraGraphQL/
+v1.1.4/HyperGraphQL/
 
 **/*SAVE*
 **/*SAVE/
+
+# pre-build jar files
+!**/UltraGraphQL/build/libs/ultragraphql-1.1.4.jar
+!**/UltraGraphQL/build/libs/ultragraphql-1.1.4-exe.jar
+!**/HyperGraphQL/build/libs/hypergraphql-3.0.2-exe.jar
+!**/HyperGraphQL/build/libs/hypergraphql-3.0.2.jar
+
+# ignore generated files
+.env
+docker-compose.yml

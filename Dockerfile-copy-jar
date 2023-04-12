@@ -1,0 +1,86 @@
+ARG BASE=${BASE:-openkbs/java-nonroot-docker}
+FROM ${BASE}
+
+MAINTAINER DrSnowbird "DrSnowbird@openkbs.org"
+
+#########################
+#### ---- App:  ---- ####
+#########################
+USER ${USER:-developer}
+WORKDIR ${HOME:-/home/developer}
+
+ENV APP_HOME=${APP_HOME:-$HOME/app}
+ENV APP_MAIN=${APP_MAIN:-setup.sh}
+COPY --chown=$USER:$USER ./app $HOME/app
+
+#########################################
+##### ---- Setup: Entry Files  ---- #####
+#########################################
+COPY --chown=${USER}:${USER} docker-entrypoint.sh /
+COPY --chown=${USER}:${USER} ${APP_MAIN} ${APP_HOME}/setup.sh
+RUN sudo chmod +x /docker-entrypoint.sh ${APP_HOME}/setup.sh 
+
+#####################################
+##### ---- user: developer ---- #####
+#####################################
+WORKDIR ${APP_HOME}
+USER ${USER}
+
+#####################################
+##### ---- UltraGraphQL:   ---- #####
+#####################################
+# ref: 
+# - paper:   http://ceur-ws.org/Vol-2722/quweda2020-paper-2.pdf
+# - gitlab:  https://git.rwth-aachen.de/i5/ultragraphql
+# - jar-exe: https://git.rwth-aachen.de/i5/ultragraphql/-/jobs/1662119/artifacts/browse/build/libs
+
+#### ---- (Build UGQL jar / exe) ---- ####
+#ARG UGQL_GIT=https://git.rwth-aachen.de/i5/ultragraphql.git
+ARG UGQL_GIT=https://github.com/DrSnowbird/UltraGraphQL.git
+RUN GIT_SSL_NO_VERIFY=true git clone ${UGQL_GIT} && cd $(basename ${UGQL_GIT%%.git}) && ls -al
+
+#### ---- (download HGQL jar files to support run-demo.sh) ---- ####
+#ARG HGQL_GIT=https://github.com/hypergraphql/hypergraphql.git
+ARG HGQL_GIT=https://github.com/DrSnowbird/HyperGraphQL.git
+RUN GIT_SSL_NO_VERIFY=true git clone ${HGQL_GIT} && cd $(basename ${HGQL_GIT%%.git}) && ls -al
+
+COPY --chown=${USER}:${USER} libs/UltraGraphQL ${APP_HOME}/UltraGraphQL
+COPY --chown=${USER}:${USER} libs/HyperGraphQL ${APP_HOME}/HyperGraphQL
+
+#### ---- (Script for Evaluation demo): ---- ####
+#ENV UGQL_VERSION=${UGQL_VERSION:-1.1.4}
+RUN mkdir -p ${HOME}/bin && sudo chown -R ${USER}:${USER} ${HOME}/bin
+COPY --chown=${USER}:${USER} bin/find-latest-release.sh ${HOME}/bin/
+COPY --chown=${USER}:${USER} run-demo.sh ${HOME}/bin/
+
+#########################################
+##### ---- Setup: Entry Files  ---- #####
+#########################################
+COPY --chown=${USER}:${USER} docker-entrypoint.sh /
+COPY --chown=${USER}:${USER} ${APP_MAIN} ${APP_HOME}/setup.sh
+RUN sudo chmod +x /docker-entrypoint.sh ${APP_HOME}/setup.sh 
+
+#########################################
+##### ---- Docker Entrypoint : ---- #####
+#########################################
+ENTRYPOINT ["/docker-entrypoint.sh"]
+
+#####################################
+##### ---- user: developer ---- #####
+#####################################
+WORKDIR ${APP_HOME}
+USER ${USER}
+
+######################
+#### (Test only) #####
+######################
+#CMD ["/bin/bash"]
+######################
+#### (RUN setup) #####
+######################
+CMD ["setup.sh"]
+
+#CMD ["/home/developer/app/config/start_ultragraph_service.sh"]
+
+
+
