@@ -24,7 +24,7 @@ If [ you are looking for such a common requirement as a base Container ] and
 
 # Build (do this first!)
 ```
-./build.sh
+make build
 ```
 
 
