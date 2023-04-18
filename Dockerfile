@@ -37,6 +37,8 @@ USER ${USER}
 #### ---- (Build jar / exe) ---- ####
 #ARG UGQL_GIT=https://git.rwth-aachen.de/i5/ultragraphql.git
 ARG UGQL_GIT=https://github.com/DrSnowbird/UltraGraphQL.git
+#ARG GIT_SSL_NO_VERIFY=${GIT_SSL_NO_VERIFY:-true}
+ARG GIT_SSL_NO_VERIFY=${GIT_SSL_NO_VERIFY:-false}
 RUN git clone ${UGQL_GIT} && cd $(basename ${UGQL_GIT%%.git}) && git pull --ff && \
     gradle clean build shadowJar && ls -al $(find ./build -name "*.jar")
 
