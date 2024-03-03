@@ -1,4 +1,4 @@
-ARG BASE=${BASE:-openkbs/java-nonroot-docker}
+ARG BASE=${BASE:-openkbs/java-nonroot-docker:11}
 FROM ${BASE}
 
 MAINTAINER DrSnowbird "DrSnowbird@openkbs.org"

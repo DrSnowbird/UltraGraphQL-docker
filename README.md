@@ -33,33 +33,37 @@ If [ you are looking for such a common requirement as a base Container ] and
    * [HyperGraphQL-docker](https://github.com/DrSnowbird/HyperGraphQL-docker)
 
 # Build (do this first!)
-```
-make build
-```
-
+* Note that it is necessary to use Java v11 to build this Container.
+* Make sure you modify "openkbs/java-nonroot-docker" (git clone locally) Dockerfile to generate image tag "11" before you build this Container:
+    ```
+    JAVA_VERSION_LIST=11 23-slim-bullseye
+    ```
+* Then, you can proceed to build this Container with errors due to Java version incompatibility issues.
+    ```
+    ./build.sh
+    ```
 
 # Build (Optional, when encountering GIT SSL issues)
 * If your Docker is located inside corporate SSL firewall, the build might fail.
 * To workaround, you want to use the 'Dockerfile-copy-jar' instead, do the followings:
-```
-cp Dockerfile Dockerfile.ORIG
-cp Dockerfile-copy-jar Dockerfile
-
-make build
-```
-
+    ```
+    cp Dockerfile Dockerfile.ORIG
+    cp Dockerfile-copy-jar Dockerfile
+    
+    make build
+    ```
 
 # (optional) Run (manual setup and run)
 * You can manually go into the container to play around, setup differently, and run - if you like to.
 * Use the command below to enter the Container:
-```
-./run.sh bash
-```
+    ```
+    ./run.sh bash
+    ```
 * Default, this will bring you into the Container /home/developer/app folder. From there you can manually do your experiment.
-```
-cd ~/app/examples/one-service
-java -jar $HOME/app/UltraGraphQL/build/libs/ultragraphql-1.1.4-exe.jar --config config.json
-```
+    ```
+    cd ~/app/examples/one-service
+    java -jar $HOME/app/UltraGraphQL/build/libs/ultragraphql-1.1.4-exe.jar --config config.json
+    ```
 
 # Run (demo with default setup)
 1. Don't start the Container yet.
